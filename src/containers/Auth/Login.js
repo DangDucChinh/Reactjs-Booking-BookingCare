@@ -3,23 +3,19 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
+import { handleLogin } from '../../services/userSevice';
+import { userLoginSuccess } from '../../store/actions';
 
-// import * as actions from "../store/actions";
-// import { KeyCodeUtils, LanguageUtils } from "../utils";
-// import userIcon from '../../src/assets/images/user.svg';
-// import passIcon from '../../src/assets/images/pass.svg';
-// import './Login.scss';
-// import { FormattedMessage } from 'react-intl';
-// import adminService from '../services/adminService';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        // khai báo các state 
+        // khai báo các state dọn dẹp thư mục và có thể đẩy lùi các thành phần props
         this.state = {
             username: '',
             password: '',
             isShowPass: false,
+            errMess: ''
         };
     }
 
@@ -35,8 +31,32 @@ class Login extends Component {
         });
     }
 
-    handleClickBtn = () => {
-        console.log("Username : " + this.state.username, " Password : " + this.state.password);
+    handleClickBtn = async () => {
+        this.setState({
+            errMess: '' // mỗi lần click thì lỗi hiển thị trước đó là rỗng , sau khi click thì lỗi phải biến mất , hoặc sinh lỗi mới
+        });
+
+        try {
+            let data = await handleLogin(this.state.username, this.state.password); 
+
+            if(data && data.errCode !== 0){
+                this.setState({
+                    errMess : data.message
+                });
+            }
+            if(data && data.errCode === 0){
+                console.log('login success'); 
+                this.props.userLoginSuccess(data.user); // truyền tham số user vào sau khi lấy được user
+            }
+        } catch (error) {
+            if (error.response) {
+                if (error.response.data) {
+                    this.setState({
+                        errMess : error.response.data.message
+                    });
+                };
+            };
+        }
     }
 
     handleHideShowPass = (event) => {
@@ -44,10 +64,6 @@ class Login extends Component {
             isShowPass: !this.state.isShowPass
         });
     }
-
-
-
-
 
 
     render() {
@@ -80,10 +96,14 @@ class Login extends Component {
                                 </span>
                             </div>
                         </div>
-                        <div className='col-12 login-input '>
+                        <div className='col-12 login-input' style={{ color :'red' }}>
+                            {this.state.errMess}
+                        </div>
+                        <div className='col-12 login-input'>
                             <button
                                 onClick={() => this.handleClickBtn()}
-                                className='col-12 btn-login' type='submit' >LOGIN</button>
+                                className='col-12 btn-login' type='submit' >LOGIN
+                            </button>
                         </div>
                         <div className='col-12 login-input'>
                             <span className='forgot-password'>Forgot your password ? </span>
@@ -110,10 +130,29 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        navigate: (path) => dispatch(push(path)),  
+        // adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
+        userLoginFail: () => dispatch(actions.userLoginFail()),
+        userLoginSuccess: (userInfo)=> dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+/*
+ hàm connect của Redux để kết nối component Login với Redux store. Đ
+ truyền vào connect hai hàm mapStateToProps và mapDispatchToProps.
+
+Hàm mapStateToProps: map state của Redux vào props của component Login. Trong ví dụ này, chúng ta chỉ lấy một phần của state, đó là state.app.language, và map nó vào một prop tên là lang. Khi state của Redux thay đổi, connect sẽ tự động cập nhật prop lang và re-render component.
+
+Hàm mapDispatchToProps được sử dụng để map các actions của Redux vào props của component Login. Trong ví dụ này, chúng ta định nghĩa các props là navigate, adminLoginSuccess, adminLoginFail, và userLoginSuccess, mỗi prop đều là một hàm dispatch một action tương ứng đến Redux store thông qua hàm dispatch.
+
+Sau khi định nghĩa mapStateToProps và mapDispatchToProps, chúng ta gọi hàm connect(mapStateToProps, mapDispatchToProps)(Login) để kết nối component Login với Redux store và trả về một component mới với các props được map từ state và actions của Redux. Khi các props này thay đổi, connect sẽ tự động re-render component Login.
+
+
+
+
+
+Regenerate response
+
+*/

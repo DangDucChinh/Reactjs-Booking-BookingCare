@@ -1,0 +1,13 @@
+import axios from "../axios";
+const handleLogin = (userEmail, userPassword)=>{
+    // gọi đến server node js 
+    // dùng 1 package phía client gửi 1 request đến server gọi là axios
+    // thế nên import axios
+
+    return axios.post('/api/login' , { // đặt tên trùng với tên của đối tượng post (url , {}) trên server
+        email : userEmail , 
+        password : userPassword
+    });
+};
+
+export {handleLogin};
