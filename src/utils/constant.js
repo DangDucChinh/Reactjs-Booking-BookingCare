@@ -1,4 +1,4 @@
-export const path = { // cấu hình đường link
+export const path = { // cấu hình đường link cho cả projetc , link trên web để tìm thành phần react.
     HOME: '/',
     HOMEPAGE : '/home',
     LOGIN: '/login',

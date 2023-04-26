@@ -66,3 +66,31 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+// hôm nay bắt đầu viết . từ video thứ 53:
+
+#1. Lỗi hôm nay cần phải chú ý đó là lỗi giao diện có cả login logout . lí do đó là tại file app.js , chúng ta để : 
+<!-- {this.props.isLoggedIn && <Header />}  --> $1 -->
+                        {/* nếu loggin thì render header */}
+                        <!-- <div className="content-container">
+                        <CustomScrollbars style={{height : '100vh', width : '100%'}}>
+                            <Switch>
+                                <Route path={path.HOME} exact component={(Home)} />
+                                <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} /> $3
+                                <Route path={path.HOMEPAGE} component={HomePage} /> $2
+                            </Switch>
+                            </CustomScrollbars> -->
+
+#=> Tại $1, nếu loggin thành công thì sẽ cho xuát hiện header(header màu xanh để login và logout) , mà tại vị trí $2 thì render ra homepage. nếu ta đăng nhập thành công, lúc đó thông tin đăng nhập được lưu lại . header sẽ xuất hiện ( để login và logout).
+cùng lúc đó chạy cả homepage nên xuất hiện tình trạng chúng cùng xuất hiện .
+
+// để giải quyết tình trạng này . login <!-- {this.props.isLoggedIn && <Header />}  --> sẽ được đưa vào 
+component SYstem tại $3, viết code trong routes/system.js .
+->  trong system . đầu tiên ta import Header Component , tiếp đến chúng ta sử dụng redux để lưu giữ isLoggedIn : state.user.isLoggedIn
+Khi đã lấy được isLoggedIn === true or false , chúng ta sẽ trích xuất tại một biến tạm tại render , và sử dụng nó để thêm vào điều kiện
+xuất hiện - true thì xuất hiện header, ko thì thôi , nó sẽ hiện lên login và bắt đăng nhập đấy . 
+
+thông tin nào muốn lưu trên react , để khi reload lại nó vẫn còn thông tin đó thì ta phải persit nó . 
+// 
+
