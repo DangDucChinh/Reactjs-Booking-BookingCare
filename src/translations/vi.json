@@ -1,4 +1,25 @@
 {
+    "homeheader" : {
+        "speciality" : "Chuyên môn",
+        "searchdoctor" : "tìm bác sĩ theo chuyên khoa",
+        "health-facility":"Cơ sở y tế",
+        "select-room": "Phòng khám hay bệnh viện",
+        "medical-package": "Gói khám bệnh",
+        "check-overview":"Gói khám sức khỏe tổng quát",
+        "doctor": "Bác sĩ",
+        "choose-doctor":"Chọn bác sĩ tốt"
+    },
+    "home-section-specialities":{
+        "online-doctor":"Bác sĩ online từ xa",
+        "remote-cardiologist":"Bác sĩ tim mạch từ xa",
+        "remote-pediatrician":"Bác sĩ nhi từ xa",
+        "remote-nephrologist-urologist":"Bác sĩ thận - tiết niệu từ xa",
+        "remote-pulmonologist-respiratory":"Bác sĩ phổi - tim mạch từ xa",
+        "remote-neurologist":"Bác sĩ thần kinh từ xa",
+        "consulting-doctor-F0":"Bác sĩ tư vấn F0",
+        "popular-specialties":"Chuyên khoa phổ biến",
+        "see-more":"Xem thêm"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

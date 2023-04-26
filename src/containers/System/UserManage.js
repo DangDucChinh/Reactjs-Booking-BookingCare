@@ -2,26 +2,45 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userSevice';
+import ModalUser from '../System/ModalUser';
+
 class UserManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayUser: []
+            arrayUser: [],
+            isOpen: false
         }
     };
+
     async componentDidMount() {
         let response = await getAllUsers('ALL');
-        console.log(response);
-        this.setState({
-            arrayUser: response.users
-        }, () => {
-            console.log('check 1 sau khi load data xong thì callback', this.state.arrayUser);
-        });
+        if(response && response.errCode === 0) {
+            this.setState({
+                arrayUser : response.users
+            },()=>{
+
+            })
+            console.log('check state users : ' + this.state.arrayUser);
+        }
+    }
+
+    isOpenModalUser = ()=>{
+        this.setState({isOpen: true});
+    }
+
+    isControlModelUser = ()=>{
+        this.setState({isOpen: !this.state.isOpen});
     }
 
     render() {
         console.log('checkout user : ', this.state);
         return (
+            <>
+            <button className='btn-user' onClick={()=>this.isOpenModalUser()}>
+            <i class="fas fa-plus"></i>Create a new user
+            </button>
+            <ModalUser isOpen={this.state.isOpen} isControlModelUser={this.isControlModelUser}/>
             <div className="user-container">
                 <div className='title text-center'>
                     Manage User Dadcy
@@ -58,13 +77,14 @@ class UserManage extends Component {
                     </table>
                 </div >
             </div >
+            </>
         );
     }
-
 }
 
 const mapStateToProps = state => {
     return {
+        // 
     };
 };
 
