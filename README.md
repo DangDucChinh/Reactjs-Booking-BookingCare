@@ -67,8 +67,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-// hôm nay bắt đầu viết . từ video thứ 53:
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+// HÔM nay bắt đầu viết . từ video thứ 53:
 
+=================================================================-
 #1. Lỗi hôm nay cần phải chú ý đó là lỗi giao diện có cả login logout . lí do đó là tại file app.js , chúng ta để : 
 <!-- {this.props.isLoggedIn && <Header />}  --> $1 -->
                         {/* nếu loggin thì render header */}
@@ -92,5 +95,41 @@ Khi đã lấy được isLoggedIn === true or false , chúng ta sẽ trích xu�
 xuất hiện - true thì xuất hiện header, ko thì thôi , nó sẽ hiện lên login và bắt đăng nhập đấy . 
 
 thông tin nào muốn lưu trên react , để khi reload lại nó vẫn còn thông tin đó thì ta phải persit nó . 
-// 
+
+
+=================================================================-
+#2. 54: Redux 
+- trước hết tải npm redux persist 
+
+=================================================================-
+#2. 56: 
+Đầu tiên là làm cách nào để load được data allcodes lên trên component .
+=> Ta sử dụng gọi api để thực hiện điều đó. 
+Khi gọi api , ta viết nó trong Didmount và truyền vào đó 1 tham số định danh cho allcodes , ví dụ position hoặc gender ...
+Khi lấy được dữ liệu trả về , dữ liệu được gọi dưới dạng 1 đối tượng có 3 tham số là errCode , message và allcodes . 
+Ta dùng allcodes để truyền dữ liệu tràn vào các thành phần nào cần nó để hiển thị , ví dụ các drop-down hoặc selected-option
+Đặt điều kiện khi có res và res.errCode === 0 , ta mới thay đổi state.genderArrr theo dữ liệu allcodes đã được lấy 
+Có được allcodes.vd-gender , ta dùng Fomatted để trình bày nó , và nhớ cấu hình trong vi.json và en.json
+Tuy nhiên, kể cả khi có như vậy thì chúng ta vẫn chưa thể thay đổi thành phần trong một select , lí do là bởi ko có cách nào đả động và xét điều kiện xem nó hiển thị ra tiếng anh hay tieiensg việt . 
+Lúc này chúng ta dùng redux để xem xem toàn bộ componet này sử dụng language nào , từ đó check điều kiện để thay đổi ngôn ngữ :
+
+<!-- let genders = this.state.genderArr; -->
+ <!-- <label><FormattedMessage id="manage-user.gender" /></label>
+                                <select className='form-control'>
+                                    {genders && genders.length > 0 &&
+                                    genders.map((item, index)=>{
+                                        return (
+                                            <option key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
+                                        );
+                                    })}
+                                </select> -->
+---
+
+
+
+
+
+
+
+
 

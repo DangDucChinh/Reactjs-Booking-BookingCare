@@ -12,7 +12,10 @@ const handleLogin = (userEmail, userPassword) => {
 
 const getAllUsers = (inputId) => {
     return axios.get(`/api/get-all-user?id=${inputId}`);
-
 }
 
-export { handleLogin, getAllUsers };
+const getAllCodeService = (typeInput)=>{
+    return axios.get(`/api/get-all-codes?type=${typeInput}`);
+}
+
+export { handleLogin, getAllUsers, getAllCodeService};

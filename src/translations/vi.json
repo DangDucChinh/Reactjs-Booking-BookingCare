@@ -7,44 +7,8 @@
         "medical-package": "Gói khám bệnh",
         "check-overview":"Gói khám sức khỏe tổng quát",
         "doctor": "Bác sĩ",
-        "choose-doctor":"Chọn bác sĩ tốt"
-    },
-    "home-section-specialities":{
-        "online-doctor":"Bác sĩ online từ xa",
-        "remote-cardiologist":"Bác sĩ tim mạch từ xa",
-        "remote-pediatrician":"Bác sĩ nhi từ xa",
-        "remote-nephrologist-urologist":"Bác sĩ thận - tiết niệu từ xa",
-        "remote-pulmonologist-respiratory":"Bác sĩ phổi - tim mạch từ xa",
-        "remote-neurologist":"Bác sĩ thần kinh từ xa",
-        "consulting-doctor-F0":"Bác sĩ tư vấn F0",
-        "popular-specialties":"Chuyên khoa phổ biến",
-        "see-more":"Xem thêm"
-    },
-    "common": {
-        "add": "Thêm",
-        "edit": "Sửa",
-        "delete": "Xóa",
-        "decentralize": "Phân quyền",
-        "close": "Đóng",
-        "save": "Lưu",
-        "refresh": "Refresh",
-        "accept": "Chấp nhận",
-        "confirm": "Xác nhận",
-        "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-        "fail-to-load-data": "Không thể tải về dữ liệu",
-        "unknown-error": "Có lỗi xảy ra",
-        "internal-server-error": "Lỗi kết nối",
-        "bad-request": "Yêu cầu không hợp lệ",
-        "forbiden-request": "Thông tin truyền vào không hợp lệ",
-        "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
-        "sum": "Tổng",
-        "date-range-invalid": "Khoảng thời gian không hợp lệ"
-    },
-    "login": {
-        "login": "Đăng nhập",
-        "username": "Tên đăng nhập",
-        "password": "Mật khẩu",
-        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+        "choose-doctor":"Chọn bác sĩ tốt",
+        "welcome" : "Xin chào, "
     },
     "menu": {
         "system": {
@@ -59,6 +23,19 @@
             "system-parameter": {
                 "header": "Tham số hệ thống"
             }
+        },
+        "admin":{
+            "manage-user":"Người dùng",
+            "manage-doctor": "Bác sĩ",
+            "manage-admin": "Admin",
+            "crud": "CRUD user",
+            "crud-redux" : "CRUD Redux",
+            "clinic" : "Phòng khám",
+            "manage-clinic":"Quản lí phòng khám",
+            "specialty":"Chuyên khoa",
+            "manage-specialty":"Quản lí chuyên khoa",
+            "handbook":"Cẩm nang",
+            "manage-handbook":"Quản lí cẩm nang"
         }
     },
     "system": {
@@ -138,5 +115,20 @@
             "remove-assign-fail": "Bỏ gán gói dịch vụ cho khách hàng thất bại",
             "sure-delete-assign": "Bạn có chắc chắn muốn bỏ gán gói dịch vụ cho khách hàng?"
         }
+    },
+    "manage-user":{
+        "add":"Thêm mới người dùng",
+        "email" :"Email",
+        "password":"Mật khẩu",
+        "first-name":"Tên",
+        "last-name":"Họ",
+        "phone-number":"Số điện thoại",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "position": "Vị trí - Chức vụ",
+        "roleid":"Mã định danh",
+        "save":"Lưu người dùng mới",
+        "image": "Ảnh đại diện"
     }
+
 }

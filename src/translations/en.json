@@ -1,36 +1,37 @@
 {
-    "homeheader" : {
-        "speciality" : "Medical speciality",
-        "searchdoctor" : "Find a doctor by speciality",
-        "health-facility":"Heath facility",
+    "homeheader": {
+        "speciality": "Medical speciality",
+        "searchdoctor": "Find a doctor by speciality",
+        "health-facility": "Heath facility",
         "select-room": "Select clinic or hospital",
         "medical-package": "Medical examination package",
-        "check-overview":"General health check package",
+        "check-overview": "General health check package",
         "doctor": "Doctor",
-        "choose-doctor":"Choose a good doctor"
+        "choose-doctor": "Choose a good doctor",
+        "welcome": "Welcome, "
     },
-    "home-section-specialities":{
-        "popular-specialties":"Popular specialities",
-        "see-more":"See more",
-        "online-doctor":"Online Doctor",
-        "remote-cardiologist":"Remote cardiologist",
-        "remote-pediatrician":"Remote pediatrician",
-        "remote-nephrologist-urologist":"Remote nephrologist - urologist",
-        "remote-pulmonologist-respiratory":"Remote pulmonologist - respiratory",
-        "remote-neurologist":"Remote neurologist",
-        "consulting-doctor-F0":"Consulting doctor F0"
+    "home-section-specialities": {
+        "popular-specialties": "Popular specialities",
+        "see-more": "See more",
+        "online-doctor": "Online Doctor",
+        "remote-cardiologist": "Remote cardiologist",
+        "remote-pediatrician": "Remote pediatrician",
+        "remote-nephrologist-urologist": "Remote nephrologist - urologist",
+        "remote-pulmonologist-respiratory": "Remote pulmonologist - respiratory",
+        "remote-neurologist": "Remote neurologist",
+        "consulting-doctor-F0": "Consulting doctor F0"
     },
     "outstanding-medical-facility": {
-        "outstanding-medical-facility":"Outstanding Medical Facility",
-        "see-more":"See more",
+        "outstanding-medical-facility": "Outstanding Medical Facility",
+        "see-more": "See more",
         "hung-viet-oncology-hospital": "Hung Viet Oncology Hospital",
-        "medlatec-health-system":"MEDLATEC health system",
-        "diag-laboratories-testing-center":"Diag Laboratories Testing Center",
-        "thu-cuc-health-system":"Thu Cuc health system",
-        "hong-phat-general-hospital":"Hong Phat General Hospital",
-        "exson-international-clinic":"EXSON International Clinic"
+        "medlatec-health-system": "MEDLATEC health system",
+        "diag-laboratories-testing-center": "Diag Laboratories Testing Center",
+        "thu-cuc-health-system": "Thu Cuc health system",
+        "hong-phat-general-hospital": "Hong Phat General Hospital",
+        "exson-international-clinic": "EXSON International Clinic"
     },
-    "banner" : {
+    "banner": {
         "": ""
     },
     "common": {
@@ -53,12 +54,6 @@
         "sum": "Sum",
         "date-range-invalid": "Date range invalid"
     },
-    "login": {
-        "login": "Login",
-        "username": "Username",
-        "password": "Password",
-        "userpass-wrong": "Invalid username or password!"
-    },
     "menu": {
         "system": {
             "header": "System",
@@ -72,6 +67,19 @@
             "system-parameter": {
                 "header": "System-parameter"
             }
+        },
+        "admin": {
+            "manage-user": "User",
+            "manage-doctor": "Doctor",
+            "manage-admin": "Admin",
+            "crud": "CRUD User",
+            "crud-redux": "CRUD Redux",
+            "clinic": "Clinic",
+            "manage-clinic": "Manage Clinic",
+            "specialty": "Specialty",
+            "manage-specialty": "Manage Specialty",
+            "handbook": "Handbook",
+            "manage-handbook": "Manage Handbook"
         }
     },
     "system": {
@@ -151,5 +159,19 @@
             "remove-assign-fail": "Fail to unassign service package to customer",
             "sure-delete-assign": "Are you sure to unassign service package to customer?"
         }
+    },
+    "manage-user":{
+        "add":"Add new user",
+        "email" :"Email",
+        "password":"Password",
+        "first-name":"First Name",
+        "last-name":"Last Name",
+        "phone-number":"Phone Number",
+        "address": "Address",
+        "gender": "Gender",
+        "position": "Position",
+        "roleid":"Role ID",
+        "save":"Save User",
+        "image": "Avatar"
     }
 }
