@@ -1,33 +1,68 @@
-import actionTypes from '../actions/actionTypes';
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
-}
+    positions: [],
+    roles: [],
+    genders: []
+};
 
-const appReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
+        case actionTypes.FETCH_POSITION_START:
             return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
-            }
-        case actionTypes.ADMIN_LOGIN_FAIL:
+                ...state
+            };
+
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            let copyStatePosition = { ...state };
+            copyStatePosition.positions = action.payload;
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        case actionTypes.PROCESS_LOGOUT:
+                ...copyStatePosition
+            };
+
+        case actionTypes.FETCH_POSITION_FAILED:
+            console.log('check au fetch position failed', action);
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
+                ...state
+            };
+
+        case actionTypes.FETCH_GENDER_START:
+            return {
+                ...state
+            };
+
+        case actionTypes.FETCH_GENDER_SUCCESS:
+            let copyStateGender = { ...state };
+            copyStateGender.genders = action.payload;
+            return {
+                ...copyStateGender
+            };
+
+        case action.FETCH_GENDER_FAILED:
+            return {
+                ...state
+            };
+
+        case actionTypes.FETCH_ROLE_START: 
+            return {
+                ...state
+            };
+
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            let copyStateRole = { ...state };
+            copyStateRole.roles = action.payload;
+            return {
+                ...copyStateRole
+            };
+
+        case actionTypes.FETCH_ROLE_FAILED :
+            return {
+                ...state
+            };
+
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default adminReducer;

@@ -21,7 +21,7 @@ class UserManage extends Component {
             },()=>{
 
             })
-            console.log('check state users : ' + this.state.arrayUser);
+            // console.log('check state users : ' + this.state.arrayUser);
         }
     }
 
@@ -34,7 +34,7 @@ class UserManage extends Component {
     }
 
     render() {
-        console.log('checkout user : ', this.state);
+        // console.log('checkout user : ', this.state);
         return (
             <>
             <button className='btn-user' onClick={()=>this.isOpenModalUser()}>
