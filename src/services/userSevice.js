@@ -18,4 +18,9 @@ const getAllCodeService = (typeInput)=>{
     return axios.get(`/api/get-all-codes?type=${typeInput}`);
 }
 
-export { handleLogin, getAllUsers, getAllCodeService};
+const createNewUserService = (data)=>{
+    // console.log('Check data from service : ', data);
+    return axios.post('/api/create-new-user', data);
+}
+
+export { handleLogin, getAllUsers, getAllCodeService , createNewUserService};

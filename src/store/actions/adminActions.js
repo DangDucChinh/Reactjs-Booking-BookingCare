@@ -1,11 +1,10 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService } from "../../services/userSevice";
+import { getAllCodeService , createNewUserService} from "../../services/userSevice";
 
 // bat dau , dang lam , ket thuc
 export const fetchPositionStart = () => {
     return async (dispatch, getState) => {
         try {
-            console.log('Check getstate: ', getState) ;
             let res = await getAllCodeService('position');
             if (res && res.errCode === 0) {
                 dispatch(fetchPositionSuccess(res.allcodes));
@@ -65,6 +64,7 @@ export const fetchRoleStart = ()=>{
     return async(dispatch , getState)=>{
         try {
             let response = await getAllCodeService('role');
+
             if(response && response.errCode === 0){
                 dispatch(fetchRoleSuccess(response.allcodes)) ; 
             }else{
@@ -89,6 +89,38 @@ export const fetchRoleFailed = ()=>{
         type : actionTypes.FETCH_ROLE_FAILED
     };
 }
+
+// export const fetchCreateNewUserStart = (data)=>{
+export const createNewUser = (data)=>{
+    return async(dispatch, getState)=>{
+        try {
+            let response = await createNewUserService(data); 
+            console.log('check data response at admin action : ', response);
+            if(response && response.errCode === 0){
+                dispatch(fetchCreateNewUserSuccess());
+            }else{
+                dispatch(fetchCreateNewUserFailed());
+            }
+        } catch (error) {
+            dispatch(fetchCreateNewUserFailed());
+            console.log('Fetch Create new user failed at admin Action : ', error);
+        }
+    }
+}
+
+export const fetchCreateNewUserSuccess = ()=>{
+    return {
+        type : actionTypes.FETCH_CREATE_NEW_USER_SUCCESS 
+    }
+}
+
+export const fetchCreateNewUserFailed = ()=>{
+   return {
+    type : actionTypes.FETCH_CREATE_NEW_USER_FAILED
+   }
+}
+
+
 
 
 

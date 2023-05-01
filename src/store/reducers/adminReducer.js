@@ -21,7 +21,6 @@ const adminReducer = (state = initialState, action) => {
             };
 
         case actionTypes.FETCH_POSITION_FAILED:
-            console.log('check au fetch position failed', action);
             return {
                 ...state
             };

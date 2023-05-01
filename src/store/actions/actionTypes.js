@@ -26,7 +26,12 @@ const actionTypes = Object.freeze({
     // admin role manage
     FETCH_ROLE_START : 'FETCH_ROLE_START',
     FETCH_ROLE_SUCCESS : 'FETCH_ROLE_SUCCESS',
-    FETCH_ROLE_FAILED : 'FETCH_ROLE_FAILED'
+    FETCH_ROLE_FAILED : 'FETCH_ROLE_FAILED',
+
+    // handle create new user from UserRedux Form
+    FETCH_CREATE_NEW_USER_START : 'FETCH_CREATE_NEW_USER_START',
+    FETCH_CREATE_NEW_USER_SUCCESS  : 'FETCH_CREATE_NEW_USER_SUCCESS',
+    FETCH_CREATE_NEW_USER_FAILED : 'FETCH_CREATE_NEW_USER_FAILED',
 });
 
 export default actionTypes;
