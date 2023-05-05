@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils/constant';
+import { LANGUAGES, CRUD_ACTIONS} from '../../../utils/constant';
+import {CommonUtils} from '../../../utils';
 import * as actions from "../../../store/actions";
 import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import TableManageUser from './TableManageUser';
-import { useCallback } from 'react';
+import {Buffer} from 'buffer';
 
 
 class UserRedux extends Component {
@@ -89,7 +90,8 @@ class UserRedux extends Component {
                 position: positions && positions.length > 0 ? positions[0].key : '',
                 role: roles && roles.length > 0 ? roles[0].key : '',
                 avatar: '',
-                action : CRUD_ACTIONS.CREATE
+                action : CRUD_ACTIONS.CREATE , 
+                previewImageUrl : ''
                 // khi list người dùng có sự thay đổi, hành động cập nhật lúc này đã xong . 
                 // lúc đó , các input cần trở về trạng thái rỗng để tiếp tục nhận dữ liệu và xử lí chúng, Do đó action lại quay về trạng
                 // thái create . 
@@ -97,14 +99,16 @@ class UserRedux extends Component {
         }
     }
 
-    handleOnchageImage = (event) => {
+    handleOnchageImage = async(event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
+            console.log('BASE :', base64);
             this.setState({
                 previewImageUrl: objectUrl, // đường dẫn, state này dùng cho thư viện để chuyển ảnh 
-                avatar: file // state này chính là avatar file 
+                avatar: base64 // state này chính là avatar file 
             });
         }
     };
@@ -157,7 +161,8 @@ class UserRedux extends Component {
                 phoneNumber: this.state.phoneNumber,
                 gender: this.state.gender,
                 roleId: this.state.role,
-                positionId: this.state.position
+                positionId: this.state.position , 
+                avatar : this.state.avatar
             });
         }
 
@@ -175,7 +180,7 @@ class UserRedux extends Component {
                 gender : this.state.gender , 
                 roleId : this.state.role , 
                 positionId : this.state.position,
-                // avatar : this.state.avatar
+                avatar : this.state.avatar
             });
         }
         
@@ -184,6 +189,10 @@ class UserRedux extends Component {
 
     handleEditUserFromParent = (dataFromChild) => {
         // console.log('Check handle edit user from parent', dataFromChild);
+        let imageBase64 = '';
+        if(dataFromChild.image){
+            imageBase64 = new Buffer(dataFromChild.image, 'base64').toString('binary');
+        }
         this.setState({
             email: dataFromChild.email,
             password: 'HARDCODE',
@@ -195,6 +204,7 @@ class UserRedux extends Component {
             position: dataFromChild.positionId,
             role: dataFromChild.roleId,
             avatar: '',
+            previewImageUrl : imageBase64 , 
             action : CRUD_ACTIONS.EDIT ,
             userEditId : dataFromChild.id 
         });
