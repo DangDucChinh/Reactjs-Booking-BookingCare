@@ -127,8 +127,8 @@
         "gender": "Giới tính",
         "position": "Vị trí - Chức vụ",
         "roleid":"Mã định danh",
-        "save":"Lưu người dùng mới",
-        "image": "Ảnh đại diện"
+        "image": "Ảnh đại diện",
+        "save" : "Lưu người dùng mới",
+        "edit" : "Chỉnh sửa người dùng"
     }
-
 }

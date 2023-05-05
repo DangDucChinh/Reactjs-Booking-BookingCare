@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
@@ -43,30 +44,40 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <Router history={history}> 
-                {/* đối với SPA ,mỗi lần refresh thì cần lưu giữ thông tin vậy nên cần history giữ trên forntedn */}
+                <Router history={history}>
+                    {/* đối với SPA ,mỗi lần refresh thì cần lưu giữ thông tin vậy nên cần history giữ trên forntedn */}
                     <div className="main-container">
                         <ConfirmModal />
                         {/* {this.props.isLoggedIn && <Header />}  */}
                         {/* nếu loggin thì render header */}
                         <div className="content-container">
-                        <CustomScrollbars style={{height : '100vh', width : '100%'}}>
-                            <Switch>
-                                <Route path={path.HOME} exact component={(Home)} />
-                                <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                <Route path={path.HOMEPAGE} component={HomePage} />
-                            </Switch>
+                            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
+                                <Switch>
+                                    <Route path={path.HOME} exact component={(Home)} />
+                                    <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={path.HOMEPAGE} component={HomePage} />
+                                </Switch>
                             </CustomScrollbars>
-                        {/* 3 router */}
+                            {/* 3 router */}
                         </div>
 
-                        <ToastContainer
+                        {/* <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}
                             pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
-                            closeButton={<CustomToastCloseButton />}
+                            closeButton={<CustomToastCloseButton />} */}
+                        <ToastContainer
+                            position='bottom-right'
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop= {false}
+                            closeOnClick rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
                         />
+
                     </div>
                 </Router>
             </Fragment>

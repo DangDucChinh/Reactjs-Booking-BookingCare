@@ -172,6 +172,7 @@
         "position": "Position",
         "roleid":"Role ID",
         "save":"Save User",
-        "image": "Avatar"
+        "image": "Avatar",
+        "edit" : "Edit User"
     }
 }
