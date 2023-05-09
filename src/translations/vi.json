@@ -10,6 +10,9 @@
         "choose-doctor":"Chọn bác sĩ tốt",
         "welcome" : "Xin chào, "
     },
+    "homepage":{
+        "out-standing-doctor":"Bác sĩ nổi bật tuần qua"
+    },
     "menu": {
         "system": {
             "header": "Hệ thống",

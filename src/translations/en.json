@@ -10,6 +10,9 @@
         "choose-doctor": "Choose a good doctor",
         "welcome": "Welcome, "
     },
+    "homepage":{
+        "out-standing-doctor":"Out standing doctor"
+    },
     "home-section-specialities": {
         "popular-specialties": "Popular specialities",
         "see-more": "See more",

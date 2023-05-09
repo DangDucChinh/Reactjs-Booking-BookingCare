@@ -1,6 +1,9 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, getAllUsers , deleteUserService, editUserService} from "../../services/userSevice";
-import {toast} from "react-toastify";
+import {
+    getAllCodeService, createNewUserService, getAllUsers, getAllDoctor
+    , deleteUserService, editUserService, getTopDoctorService, saveDetailDoctor
+} from "../../services/userSevice";
+import { toast } from "react-toastify";
 // bat dau , dang lam , ket thuc
 export const fetchPositionStart = () => {
     return async (dispatch, getState) => {
@@ -126,7 +129,7 @@ export const fetchAllUserByRedux = () => {
     return async (dispatch, getState) => {
         try {
             let response = await getAllUsers('ALL');
-            console.log('check response at admin action : ', response); // một lô các user nguyên gốc trừ password
+
             if (response && response.errCode === 0) {
                 dispatch(fetchAllUserSuccess(response.users.reverse()));
             } else {
@@ -151,15 +154,15 @@ export const fetchAllUserFailed = () => {
 }
 
 export const deleteUserByRedux = (userIdWillDelete) => {
-    return async(dispatch , getState)=>{
+    return async (dispatch, getState) => {
         try {
-            let response = await deleteUserService(userIdWillDelete); 
+            let response = await deleteUserService(userIdWillDelete);
             console.log('Phản hồi : ', response);
-            if(response && response.errCode === 0){
+            if (response && response.errCode === 0) {
                 toast.success("Delete user success!");
                 dispatch(deleteUserSuccess());
                 dispatch(fetchAllUserByRedux());
-            }else {
+            } else {
                 dispatch(deleteUserFailed());
             }
         } catch (error) {
@@ -179,20 +182,16 @@ export const deleteUserFailed = () => {
     return { type: actionTypes.DELETE_USER_FAILED }
 }
 
-export const editUser = (id , userDataFromInput)=>{
-    return async(dispatch , getState)=>{
-        alert('BUG2'); 
+export const editUser = (id, userDataFromInput) => {
+    return async (dispatch, getState) => {
         try {
-            console.log("Phản hồi đầu tiên:");
-            console.log(userDataFromInput) ; 
-            let response = await editUserService(id , userDataFromInput);
-            console.log("Phản hồi : ",response);
-            
-            if(response && response.errCode === 0){
+            let response = await editUserService(id, userDataFromInput);
+
+            if (response && response.errCode === 0) {
                 toast.success("Update the user successfully!!!");
-                dispatch(editUserSuccess()); 
+                dispatch(editUserSuccess());
                 dispatch(fetchAllUserByRedux());
-            }else{
+            } else {
                 toast.success("Update the user error !!!");
                 dispatch(editUserFailed());
             }
@@ -204,13 +203,91 @@ export const editUser = (id , userDataFromInput)=>{
     }
 }
 
-export const editUserSuccess = ()=>{
-    return {type : actionTypes.EDIT_USER_SUCCESS};
+export const editUserSuccess = () => {
+    return { type: actionTypes.EDIT_USER_SUCCESS };
 }
 
-export const editUserFailed = ()=>{
-    return {type : actionTypes.EDIT_USER_FAILED};
+export const editUserFailed = () => {
+    return { type: actionTypes.EDIT_USER_FAILED };
 }
+
+export const getTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getTopDoctorService('');
+            if (response && response.errCode === 0) {
+       
+                dispatch({
+                    type: actionTypes.GET_TOP_DOCTOR_SUCCESS,
+                    payload: response.data
+                    // response của api này là 1 obj chứa message , errCode , data
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_TOP_DOCTOR_FAILED
+                });
+            }
+        } catch (error) {
+            console.log('Lỗi tại adminAction', error);
+            dispatch({
+                type: actionTypes.GET_TOP_DOCTOR_FAILED
+            });
+        }
+    }
+};
+
+export const fetchAllDoctorRedux = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllDoctor();
+            if (response && response.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTOR_SUCCESS,
+                    payload: response.data
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_DOCTOR_FAILED
+                });
+            }
+
+        } catch (error) {
+            console.log('Lỗi tại adminAction', error);
+            dispatch({
+                type: actionTypes.GET_ALL_DOCTOR_FAILED
+            });
+        }
+    };
+}
+
+export const saveDetailDoctorByRedux = (dataFromRequestInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await saveDetailDoctor(dataFromRequestInput);
+            console.log("CHEKC RES : ",response);
+            if (response && response.errCode === 0) {
+                toast.success("Save detail doctor successfully!!!");
+                dispatch({
+                    type: actionTypes.SAVE_DOCTOR_SUCCESS
+                });
+            } else {
+                toast.error(" Failed save detail 1!!! 1");
+                dispatch({
+                    type: actionTypes.SAVE_DOCTOR_FAILED
+                });
+            }
+        } catch (error) {
+            console.log('Lỗi tại adminAction saveDetailDoctorByRedux', error);
+            toast.error(" Failed save detail 2!!!");
+            dispatch({
+                type: actionTypes.SAVE_DOCTOR_FAILED
+            });
+        }
+    };
+};
+
+
+
 
 
 

@@ -33,4 +33,17 @@ const editUserService = (id, userDataFromInput)=>{
     // return axios.delete(`/api/delete-user/${userIdWillDelete}`);
 }
 
-export { handleLogin, getAllUsers, getAllCodeService , createNewUserService , deleteUserService , editUserService};
+const getTopDoctorService = (limit)=>{
+    return axios.get(`/api/top-doctor-home?limit=${limit}`);
+}
+
+const getAllDoctor = ()=>{
+    return axios.get(`/api/get-all-doctor`);
+}
+
+const saveDetailDoctor = (data)=>{
+    return axios.post(`/api/save-infor-doctor` , data);
+}
+
+export { handleLogin, getAllUsers, getAllCodeService , createNewUserService , deleteUserService , editUserService , 
+    getAllDoctor , getTopDoctorService, saveDetailDoctor};

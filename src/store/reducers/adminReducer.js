@@ -4,7 +4,9 @@ const initialState = {
     positions: [],
     roles: [],
     genders: [],
-    users : []
+    users: [],
+    topDoctors: [],
+    allDoctors: []
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -43,7 +45,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             };
 
-        case actionTypes.FETCH_ROLE_START: 
+        case actionTypes.FETCH_ROLE_START:
             return {
                 ...state
             };
@@ -55,17 +57,41 @@ const adminReducer = (state = initialState, action) => {
                 ...copyStateRole
             };
 
-        case actionTypes.FETCH_ROLE_FAILED :
+        case actionTypes.FETCH_ROLE_FAILED:
             return {
                 ...state
             };
 
-        case actionTypes.FETCH_ALL_USER_SUCCESS : 
-            state.users = action.payload ; // lấy dpayload từ action sau khi thực hiện get dữ liệu tại đó. tại sao chúng ta lại gán vào đây ?? // vì chúng ta cần sử dụng nó cho global, vì vậy nó cần dc lưu trữ sâu sắc vào redux . 
-            return {...state};
-        case actionTypes.FETCH_ALL_USER_FAILED : 
+        case actionTypes.FETCH_ALL_USER_SUCCESS:
+            state.users = action.payload; // lấy dpayload từ action sau khi thực hiện get dữ liệu tại đó. tại sao chúng ta lại gán vào đây ?? // vì chúng ta cần sử dụng nó cho global, vì vậy nó cần dc lưu trữ sâu sắc vào redux . 
             return { ...state };
-        
+        case actionTypes.FETCH_ALL_USER_FAILED:
+            return { ...state };
+
+        case actionTypes.GET_TOP_DOCTOR_SUCCESS:
+            let copyStateTopDoctors = { ...state };
+            copyStateTopDoctors.topDoctors = action.payload;
+            // payload nhận từ action tại adminAction
+            return {
+                ...copyStateTopDoctors
+            };
+        case actionTypes.GET_TOP_DOCTOR_FAILED:
+            state.topDoctors = [];
+            return { ...state };
+
+        case actionTypes.GET_ALL_DOCTOR_SUCCESS:
+            let copyStateAllDoctors = { ...state };
+            copyStateAllDoctors.allDoctors = action.payload;
+            console.log('copy :', copyStateAllDoctors);
+            return {
+                ...copyStateAllDoctors
+            };
+
+
+        case actionTypes.GET_ALL_DOCTOR_FAILED:
+            state.allDoctors = [];
+            return { ...state };
+
 
         default:
             return state;

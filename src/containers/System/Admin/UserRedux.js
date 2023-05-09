@@ -52,7 +52,7 @@ class UserRedux extends Component {
 
             this.setState({
                 genderArr: genders,
-                gender: genders && genders.length > 0 ? genders[0].key : ''
+                gender: genders && genders.length > 0 ? genders[0].keyMap : ''
                 // nếu có genders và genders.length > 0 thì lấy key của phần tử đầu tiên gán vào giá trị mặc định cho state 
                 // còn nếu ko thỏa mãn đk thì state mặc định được gán rỗng sau khi đã update . 
             });
@@ -62,7 +62,7 @@ class UserRedux extends Component {
             let positions = this.props.positionDataFromRootReducer;
             this.setState({
                 positionArr: positions,
-                position: positions && positions.length > 0 ? positions[0].key : ''
+                position: positions && positions.length > 0 ? positions[0].keyMap : ''
             });
         }
 
@@ -70,7 +70,7 @@ class UserRedux extends Component {
             let roles = this.props.roleDataFromRootReducer;
             this.setState({
                 roleArr: this.props.roleDataFromRootReducer,
-                role: roles && roles.length > 0 ? roles[0].key : ''
+                role: roles && roles.length > 0 ? roles[0].keyMap : ''
             });
         }
 
@@ -86,9 +86,9 @@ class UserRedux extends Component {
                 lastName: '',
                 phoneNumber: '',
                 address: '',
-                gender: genders && genders.length > 0 ? genders[0].key : '',
-                position: positions && positions.length > 0 ? positions[0].key : '',
-                role: roles && roles.length > 0 ? roles[0].key : '',
+                gender: genders && genders.length > 0 ? genders[0].keyMap : '',
+                position: positions && positions.length > 0 ? positions[0].keyMap : '',
+                role: roles && roles.length > 0 ? roles[0].keyMap : '',
                 avatar: '',
                 action : CRUD_ACTIONS.CREATE , 
                 previewImageUrl : ''
@@ -130,7 +130,7 @@ class UserRedux extends Component {
     }
 
     isCheckValidate = () => {
-        let arrId = ['email', 'password', 'gender', 'phoneNumber', 'address', 'position', 'role', 'firstName', 'lastName', 'avatar'];
+        let arrId = ['email', 'password', 'gender', 'phoneNumber', 'address', 'position', 'role', 'firstName', 'lastName'];
         let copyState = { ...this.state };
         let isValid = true;
         for (let i = 0; i < arrId.length; i++) {
@@ -266,7 +266,7 @@ class UserRedux extends Component {
                                         positions.map((item, index) => {
                                             return (
                                                 <option key={index}
-                                                    value={item.key}
+                                                    value={item.keyMap}
                                                 >{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
                                             );
                                         })}
@@ -279,7 +279,7 @@ class UserRedux extends Component {
                                     {roles && roles.length > 0 &&
                                         roles.map((item, index) => {
                                             return (
-                                                <option value={item.key} key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
+                                                <option value={item.keyMap} key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
                                             );
                                         })}
                                 </select>
@@ -291,7 +291,7 @@ class UserRedux extends Component {
                                     {genders && genders.length > 0 &&
                                         genders.map((item, index) => {
                                             return (
-                                                <option value={item.key} key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
+                                                <option value={item.keyMap} key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
                                             );
                                         })}
                                 </select>

@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './TableManageUser.scss';
 import * as actions from "../../../store/actions";
+import {Buffer} from 'buffer';
 // import tất cả action từ thư mục actions
+
+//
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+// import style manually
+import 'react-markdown-editor-lite/lib/index.css';
+
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+function handleEditorChange({ html, text }) {
+  console.log('handleEditorChange', html, text);
+}
 
 class TableManageUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            usersComponent: [] ,
-            idDelete : ''
+            usersComponent: [],
+            idDelete: ''
         }
     };
 
@@ -26,15 +39,16 @@ class TableManageUser extends Component {
             });
         }
     }
-    handleClickDelete = (user)=>{
+    handleClickDelete = (user) => {
         this.props.deleteUserByRedux(user.id);
     }
-    handleClickEdit = (user)=>{
-        this.props.handleEditUserFromParentKey(user); 
+    handleClickEdit = (user) => {
+        this.props.handleEditUserFromParentKey(user);
     }
 
     render() {
         let arrUsers = this.state.usersComponent;
+
         return (
             <>
                 <table id="TableManageUser">
@@ -45,9 +59,15 @@ class TableManageUser extends Component {
                         <th>Lastname</th>
                         <th>Address</th>
                         <th>ID</th>
+                        <th>Ảnh đại diện</th>
                         <th>Thao tác</th>
+                       
                     </tr>
                     {arrUsers && arrUsers.length > 0 && arrUsers.map((item, index) => {
+                        let imageBase64 = '';
+                        if (item.image) {
+                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                        }
                         return (
                             <tr key={index}>
                                 <td>{index + 1}</td>
@@ -56,15 +76,25 @@ class TableManageUser extends Component {
                                 <td>{item.firstName}</td>
                                 <td>{item.address}</td>
                                 <td>{item.id}</td>
+                                <td style={{width : '150px'}}>
+                                    <div
+                                        style={{ border : '1px solid black', width : '100%' , height:'150px', 
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center', backgroundImage: `url(${imageBase64})`
+                                        }} >
+                                    </div>
+                                </td>
                                 <td>
-                                    <button className='btn-edit' onClick={()=> this.handleClickEdit(item)}><i class="fas fa-wrench"></i></button>
-                                    <button className='btn-delete' onClick={()=> this.handleClickDelete(item)}><i class="fas fa-trash"></i></button>
+                                    <button className='btn-edit' onClick={() => this.handleClickEdit(item)}><i class="fas fa-wrench"></i></button>
+                                    <button className='btn-delete' onClick={() => this.handleClickDelete(item)}><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         );
                     })}
 
                 </table>
+
+                <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
             </>
         );
     }
@@ -80,7 +110,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllUserByRedux: () => dispatch(actions.fetchAllUserByRedux()),
-        deleteUserByRedux : (user)=> dispatch(actions.deleteUserByRedux(user))
+        deleteUserByRedux: (user) => dispatch(actions.deleteUserByRedux(user))
     };
 };
 
