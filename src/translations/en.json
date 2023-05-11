@@ -180,5 +180,11 @@
         "save":"Save User",
         "image": "Avatar",
         "edit" : "Edit User"
+    },
+    "manage-schedule":{
+        "title" :"Manage doctor's examination plan",
+        "choose-doctor": "Choose doctor" , 
+        "choose-date":"Choose date for examination",
+        "save": "Save information"
     }
 }

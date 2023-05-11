@@ -1,7 +1,7 @@
 import actionTypes from "./actionTypes";
 import {
     getAllCodeService, createNewUserService, getAllUsers, getAllDoctor
-    , deleteUserService, editUserService, getTopDoctorService, saveDetailDoctor
+    , deleteUserService, editUserService, getTopDoctorService, saveDetailDoctor , getAllCodeScheduleTime 
 } from "../../services/userSevice";
 import { toast } from "react-toastify";
 // bat dau , dang lam , ket thuc
@@ -216,7 +216,7 @@ export const getTopDoctor = () => {
         try {
             let response = await getTopDoctorService('');
             if (response && response.errCode === 0) {
-       
+
                 dispatch({
                     type: actionTypes.GET_TOP_DOCTOR_SUCCESS,
                     payload: response.data
@@ -264,7 +264,7 @@ export const saveDetailDoctorByRedux = (dataFromRequestInput) => {
     return async (dispatch, getState) => {
         try {
             let response = await saveDetailDoctor(dataFromRequestInput);
-            console.log("CHEKC RES : ",response);
+            console.log("CHEKC RES : ", response);
             if (response && response.errCode === 0) {
                 toast.success("Save detail doctor successfully!!!");
                 dispatch({
@@ -285,6 +285,32 @@ export const saveDetailDoctorByRedux = (dataFromRequestInput) => {
         }
     };
 };
+
+
+export const fetchAllCodeScheduleTime = () => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await getAllCodeService("TIME");
+            if (response && response.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_CODE_SCHEDULE_TIME_SUCCESS,
+                    payload: response.allcodes
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_CODE_SCHEDULE_TIME_FAILED
+                });
+            }
+        } catch (error) {
+            console.log('Lỗi tại admin action : ', error);
+            dispatch({
+                type: actionTypes.GET_ALL_CODE_SCHEDULE_TIME_FAILED
+            });
+        }
+    }
+};
+
+
 
 
 

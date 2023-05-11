@@ -65,6 +65,12 @@ class Login extends Component {
         });
     }
 
+    handleKeyDown = (event)=>{
+        if(event.keyCode === 13 || event.key === 'Enter'){
+            this.handleClickBtn();
+        };
+    }
+
 
     render() {
 
@@ -87,6 +93,7 @@ class Login extends Component {
                             <div className='control'>
                                 <input type={this.state.isShowPass ? 'password' : 'text'}
                                     onChange={(event) => { this.handlePasswordChange(event) }}
+                                    onKeyDown={(event) => { this.handleKeyDown(event)}}
                                     value={this.state.password}
                                     className='form-control'
                                     name='password'

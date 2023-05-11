@@ -6,7 +6,8 @@ const initialState = {
     genders: [],
     users: [],
     topDoctors: [],
-    allDoctors: []
+    allDoctors: [],
+    allScheduleTime: []
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -82,7 +83,6 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.GET_ALL_DOCTOR_SUCCESS:
             let copyStateAllDoctors = { ...state };
             copyStateAllDoctors.allDoctors = action.payload;
-            console.log('copy :', copyStateAllDoctors);
             return {
                 ...copyStateAllDoctors
             };
@@ -92,7 +92,16 @@ const adminReducer = (state = initialState, action) => {
             state.allDoctors = [];
             return { ...state };
 
+        case actionTypes.GET_ALL_CODE_SCHEDULE_TIME_SUCCESS:
+            let stateSchedule = { ...state };
+            stateSchedule.allScheduleTime = action.payload;
+            return {
+                ...stateSchedule
+            }
 
+        case actionTypes.GET_ALL_CODE_SCHEDULE_TIME_FAILED:
+            state.allScheduleTime = [];
+            return { ...state };
         default:
             return state;
     }

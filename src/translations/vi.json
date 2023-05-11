@@ -136,5 +136,11 @@
         "image": "Ảnh đại diện",
         "save" : "Lưu người dùng mới",
         "edit" : "Chỉnh sửa người dùng"
+    },
+    "manage-schedule":{
+        "title" :"Quản lý kế hoạch khám bệnh của bác sĩ",
+        "choose-doctor": "Chọn bác sĩ" , 
+        "choose-date":"Chọn ngày khám bệnh",
+        "save": "Lưu thông tin"
     }
 }
