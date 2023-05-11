@@ -5,6 +5,7 @@ import { FormattedMessage } from "react-intl";
 import './HomeHeader.scss';
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions";
+import { withRouter } from "react-router";
 
 class HomeHeader extends Component {
     constructor(props) {
@@ -14,12 +15,14 @@ class HomeHeader extends Component {
         };
     }
 
-    handleChangLanguage = () => {
-
+    returnToHome = ()=>{
+        if(this.props.history){
+            this.props.history.push(`/home`);
+        }
     }
+
     render() {
         let lang = this.props.language;
-        // language này lấy từ redux chứ ko phải từ props của component cha con
         console.log('Check useer infor : ', this.props.userInfo);
         return (
             <>
@@ -27,7 +30,7 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <div className="header-logo"></div>
+                            <div className="header-logo" onClick={()=>this.returnToHome()}></div>
                         </div>
                         <div className="center-content">
                             <div className="child-content">
@@ -62,68 +65,70 @@ class HomeHeader extends Component {
                 </div>
 
                 <div className="home-header-background">
-                    <div className="home-header-banner">
-                        <div className="content-up">
-                            <div className="title-big">NỀN TẢNG Y TẾ</div>
-                            <div className="title-small">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
-                            <div className="search">
-                                <i className="fas fa-search"></i>
-                                <input type="text" className="input-search" placeholder="Tìm chuyên khoa khám bệnh" />
-                            </div>
-                        </div>
-                        <div className="content-down">
-                            <div className="options">
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Chuyên khoa</div>
-                                    </div>
-                                </div>
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Tổng quát</div>
-                                    </div>
-                                </div>
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Từ xa</div>
-                                    </div>
-                                </div>
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Xét nghiệm</div>
-                                    </div>
-                                </div>
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Tinh thần</div>
-                                    </div>
-                                </div>
-                                <div className="option-item">
-                                    <div className="option-item-icon">
-                                        <i className="far fa-hospital"></i>
-                                    </div>
-                                    <div className="option-item-text">
-                                        <div className="">Nha khoa</div>
-                                    </div>
+                    {this.props.isShowBanner === true &&
+                        <div className="home-header-banner">
+                            <div className="content-up">
+                                <div className="title-big">NỀN TẢNG Y TẾ</div>
+                                <div className="title-small">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
+                                <div className="search">
+                                    <i className="fas fa-search"></i>
+                                    <input type="text" className="input-search" placeholder="Tìm chuyên khoa khám bệnh" />
                                 </div>
                             </div>
+                            <div className="content-down">
+                                <div className="options">
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Chuyên khoa</div>
+                                        </div>
+                                    </div>
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Tổng quát</div>
+                                        </div>
+                                    </div>
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Từ xa</div>
+                                        </div>
+                                    </div>
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Xét nghiệm</div>
+                                        </div>
+                                    </div>
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Tinh thần</div>
+                                        </div>
+                                    </div>
+                                    <div className="option-item">
+                                        <div className="option-item-icon">
+                                            <i className="far fa-hospital"></i>
+                                        </div>
+                                        <div className="option-item-text">
+                                            <div className="">Nha khoa</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </>
         )
@@ -137,7 +142,7 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        userInfo : state.user.userInfo,
+        userInfo: state.user.userInfo,
         language: state.app.language,
     }
 }
@@ -160,4 +165,4 @@ Khi gọi hàm action creator changeLanguageApp, bạn sẽ nhận được mộ
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

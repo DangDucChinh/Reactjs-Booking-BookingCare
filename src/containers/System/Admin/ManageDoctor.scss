@@ -28,6 +28,22 @@
         }
     }
 
+    .create-content-doctor{
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border-radius: 3px;
+        outline: none;
+        border : none;
+        padding : 5px ;
+        background: rgb(26, 188, 31) ;
+        color: white;
+        cursor: pointer;
+
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+
     .more-infor{
         display: flex;
         padding : 10px;

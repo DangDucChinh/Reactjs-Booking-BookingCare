@@ -6,16 +6,13 @@ class Home extends Component {
 
     render() {
         const { isLoggedIn } = this.props;
-        // let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/login';
+       
         let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/home';
-        
-        // nếu isLoggin === true thì reirect đến router thứ nhất,nếu ko thì chuyển đến router thứ 2 : 
-        // 
+
         return (
             <Redirect to={linkToRedirect} />
         );
     }
-
 }
 
 const mapStateToProps = state => {

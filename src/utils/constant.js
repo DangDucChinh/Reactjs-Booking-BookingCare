@@ -3,13 +3,22 @@ export const path = { // cấu hình đường link cho cả projetc , link trê
     HOMEPAGE : '/home',
     LOGIN: '/login',
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    SYSTEM: '/system' , 
+    DETAIL_DOCTOR : '/detail-doctor/:id' , 
+    DOCTOR : '/doctor' // tự cấu hình trong #71
 };
 
 export const LANGUAGES = {
     VI: 'vi',
     EN: 'en'
 };
+
+export const USER_ROLE = {
+    ADMIN : 'R1' , 
+    DOCTOR : 'R2',
+    PATIENT : 'R3'
+}
+
  
 export const CRUD_ACTIONS = {
     ADD: "ADD",

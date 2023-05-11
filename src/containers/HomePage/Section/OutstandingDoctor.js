@@ -9,6 +9,8 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils';
 import {Buffer} from 'buffer';
 
+import { Redirect, withRouter } from 'react-router';
+
 
 class OutstandingDoctor extends Component {
     constructor(props) {
@@ -31,6 +33,11 @@ class OutstandingDoctor extends Component {
     }
 
 
+    handleViewDetailDoctor = (doctor)=>{
+        this.props.history.push(`/detail-doctor/${doctor.id}`);
+    }
+
+
     render() {
         let settings = {
             dots: false,
@@ -42,16 +49,13 @@ class OutstandingDoctor extends Component {
 
         let arrDoctorsRender = this.state.arrDoctors;
         let { language} = this.props;
-        // arrDoctorsRender = arrDoctorsRender.concat(arrDoctorsRender).concat(arrDoctorsRender);
-        console.log('RENDER : ', arrDoctorsRender);
 
         return (
             <>
                 <div className="section-OutstandingDoctor">
                     <div className="OutstandingDoctor-header">
-                        {/* <span className="title-section"><FormattedMessage id="home-section-specialities.popular-specialties" /></span> */}
                        
-                        <span><h3><FormattedMessage id='homepage.out-standing-doctor' /></h3></span>
+                        <span><FormattedMessage id='homepage.out-standing-doctor' /></span>
                         <button class="btn-section" type="button">
                             <FormattedMessage id="home-section-specialities.see-more" />
                         </button>
@@ -65,11 +69,11 @@ class OutstandingDoctor extends Component {
                                     imageDoctorBase64 = new Buffer(item.image, 'base64').toString('binary');
                                 }
 
-                                let nameVi = `${item.positionData.valueVi}, ${item.lastName}, ${item.firstName} `;
-                                let nameEn = `${item.positionData.valueEn}, ${item.firstName}, ${item.lastName} `;
+                                let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName} `;
+                                let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName} `;
 
                                 return (
-                                    <div className="slick-item" key={index}>
+                                    <div className="slick-item" key={index} onClick={()=>this.handleViewDetailDoctor(item)}> 
                                         <div className="bg-image" style={{backgroundImage : `url(${imageDoctorBase64})`}}></div>
                                         <p>{language === LANGUAGES.VI ? nameVi : nameEn}</p>
                                         <p>Cơ xương khớp</p>
@@ -102,4 +106,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor);
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor));
