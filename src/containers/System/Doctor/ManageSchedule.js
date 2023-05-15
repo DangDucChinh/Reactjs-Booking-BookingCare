@@ -4,9 +4,14 @@ import './ManageSchedule.scss';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils';
+import { LANGUAGES, dateFormat } from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
+import { toast } from "react-toastify";
+import _ from 'lodash';
+import { saveBulkScheduleDoctor } from '../../../services/userSevice';
+
+
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -32,8 +37,20 @@ class ManageSchedule extends Component {
         }
 
         if (prevProps.allScheduleTimeByRedux !== this.props.allScheduleTimeByRedux) {
+            let data = this.props.allScheduleTimeByRedux;  // mảng đối tượng redux
+            if (data && data.length > 0) {
+                // data = data.map((item)=>{
+                //     item.selected = false;
+                //     return item;
+                // });
+
+                data = data.map(item => ({ ...item, isSelected: false }));
+            }
+            // hứng data từ database , thêm cho từng phần tử của nó một trường mới đó là isSelected = true ,
+            // sau đó gán nó cho allScheduleTime , thì như vậy state này sẽ chứa một đối tượng động có thể lựa chọn isSeleted === true hay fasle
+
             this.setState({
-                allScheduleTime: this.props.allScheduleTimeByRedux
+                allScheduleTime: data
             });
         }
 
@@ -48,25 +65,6 @@ class ManageSchedule extends Component {
 
     handleChange = async (selectedDoctor) => { // ghi data vào state
         this.setState({ selectedDoctor: selectedDoctor });
-
-        // let response = await getDetailDoctor(selectedDoctors.value);
-        // if(response && response.errCode === 0 && response.data.Markdown && response.data.Markdown.contentHTML
-        //     && response.data.Markdown.contentMarkdown && response.data.Markdown.description){
-        //     let markdown = response.data.Markdown;
-        //     this.setState({
-        //         contentHTML : markdown.contentHTML , 
-        //         contentMarkdown : markdown.contentMarkdown,
-        //         description : markdown.description , 
-        //         hasOldData : true
-        //     });
-        // }else {
-        //     this.setState({
-        //         contentHTML : '',
-        //         contentMarkdown : '',
-        //         description : '' , 
-        //         hasOldData : false
-        //     });
-        // }
     };
 
     builDataForInputDoctor = (dataInput) => { // so sánh để hiển thị data ra input doctor 
@@ -87,19 +85,83 @@ class ManageSchedule extends Component {
 
         return result;
     }
+    handleClickButtonTime = (itemInput) => {
+        let allScheduleTime = this.state.allScheduleTime;
+        if (allScheduleTime && allScheduleTime.length > 0) {
+            allScheduleTime = allScheduleTime.map(item => {  // gán mảng này thành 1 cái mảngB mà mảngB có 1 phần tử đc seleted 
+                if (item.id === itemInput.id) item.isSelected = !item.isSelected;
+                return item;
+            });
+        }
 
-    handleClickScheduleTime = () => {
+        this.setState({
+            allScheduleTime: allScheduleTime
+        });
+    }
 
+    handleClickSaveScheduleTime = async() => {
+        let { allScheduleTime, selectedDoctor, currentDate } = this.state;
+        let result = [];
+        if (!currentDate) {
+            toast.error('Ngày ko hợp lệ, chọn ngày !');
+            return;
+        }
+        if (selectedDoctor && _.isEmpty(selectedDoctor)) {
+            toast.error('Bác sĩ ko hợp lệ!');
+            return;
+        }
+
+        // let formattedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formattedDate = new Date(currentDate).getTime();
+
+        if (allScheduleTime && allScheduleTime.length > 0) {
+            let selectedTime = allScheduleTime.filter(item => item.isSelected === true);
+            if (selectedTime && selectedTime.length > 0) {
+                selectedTime.map(time=>{
+                    let obj = {};
+                    obj.doctorId = selectedDoctor.value; // tạo key cho obj mới này bằng seletedDoctor id
+                    obj.date = formattedDate ; 
+                    obj.timeType = time.keyMap ; 
+                    result.push(obj);
+                });
+
+
+            } else {
+                toast.error('Invalid selected time!');
+                return;
+            }
+        }
+
+
+        
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule : result , 
+            doctorId : selectedDoctor.value , 
+            date : formattedDate
+        });
+
+        if(res && res.errCode === 0){
+            toast.success('Thành công save!');
+        }else{
+            toast.error('Thất bại save !');
+            console.log('errror save : ', res);
+        }
     }
 
     handleChangeDatePicker = (date) => {
         this.setState({ currentDate: date[0] });
+        <DatePicker
+        value={this.state.currentDate}
+        minDate={new Date()}
+        onChange={this.handleChangeDatePicker}
+        className='form-control' />
     }
+    
 
     render() {
-        // console.log('state : ', this.state);
         let { allScheduleTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate()-1)) ;
         return (
             <>
                 <div className='manage-schedule-container'>
@@ -120,7 +182,7 @@ class ManageSchedule extends Component {
                                 <label><FormattedMessage id="manage-schedule.choose-date" /></label>
                                 <DatePicker
                                     value={this.state.currentDate}
-                                    minDate={new Date()}
+                                    minDate={yesterday}
                                     onChange={this.handleChangeDatePicker}
                                     className='form-control' />
                             </div>
@@ -128,7 +190,10 @@ class ManageSchedule extends Component {
                                 {allScheduleTime && allScheduleTime.length > 0 &&
                                     allScheduleTime.map((item, index) => {
                                         return (
-                                            <button className='btn btn-schedule' key={index}>
+                                            <button
+                                                className={item.isSelected === true ? 'btn btn-schedule active' : 'btn btn-schedule'}
+                                                key={index}
+                                                onClick={() => this.handleClickButtonTime(item)}>
                                                 {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                             </button>
                                         );
@@ -136,7 +201,7 @@ class ManageSchedule extends Component {
                                 }
                             </div>
                             <div className='col-12'>
-                                <button className='btn btn-primary btn-save' onClick={this.handleClickScheduleTime}>
+                                <button className='btn btn-primary btn-save' onClick={() => this.handleClickSaveScheduleTime()}>
                                     <FormattedMessage id="manage-schedule.save" />
                                 </button>
                             </div>
@@ -155,7 +220,6 @@ const mapStateToProps = state => {
         allDoctorsRedux: state.admin.allDoctors,
         allScheduleTimeByRedux: state.admin.allScheduleTime,
     }
-
 };
 
 const mapDispatchToProps = dispatch => {

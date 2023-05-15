@@ -186,5 +186,11 @@
         "choose-doctor": "Choose doctor" , 
         "choose-date":"Choose date for examination",
         "save": "Save information"
+    },
+    "patient":{
+        "detail-doctor":{
+            "schedule":"Schedule examination",
+            "no-schedule":"The doctor has no scheduled appointments during this time!"
+        }
     }
 }

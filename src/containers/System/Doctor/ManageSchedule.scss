@@ -21,6 +21,11 @@
             padding : 0px 10px ; 
             border : 1px solid #ccc;
             font-size: 11px;
+
+            &.active{
+                background-color: #19b424f1;
+                color: white;
+            }
         }
     }
 }

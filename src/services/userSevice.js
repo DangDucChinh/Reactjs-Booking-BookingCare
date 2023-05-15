@@ -14,42 +14,52 @@ const getAllUsers = (inputId) => {
     return axios.get(`/api/get-all-user?id=${inputId}`);
 }
 
-const getAllCodeService = (typeInput)=>{
+const getAllCodeService = (typeInput) => {
     return axios.get(`/api/get-all-codes?type=${typeInput}`);
 }
 
-const createNewUserService = (data)=>{
+const createNewUserService = (data) => {
     // console.log('Check data from service : ', data);
     return axios.post('/api/create-new-user', data);
 }
 
-const deleteUserService = (userIdWillDelete)=>{
+const deleteUserService = (userIdWillDelete) => {
     return axios.delete(`/api/delete-user/${userIdWillDelete}`);
 
 }
 
-const editUserService = (id, userDataFromInput)=>{
-    return axios.put(`/api/update-user/${id}`,userDataFromInput);
+const editUserService = (id, userDataFromInput) => {
+    return axios.put(`/api/update-user/${id}`, userDataFromInput);
     // return axios.delete(`/api/delete-user/${userIdWillDelete}`);
 }
 
-const getTopDoctorService = (limit)=>{
+const getTopDoctorService = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`);
 }
 
-const getAllDoctor = ()=>{
+const getAllDoctor = () => {
     return axios.get(`/api/get-all-doctor`);
 }
 
-const saveDetailDoctor = (data)=>{
-    return axios.post(`/api/save-infor-doctor` , data);
+const saveDetailDoctor = (data) => {
+    return axios.post(`/api/save-infor-doctor`, data);
 }
 
-const getDetailDoctor = (inputId)=>{
+const getDetailDoctor = (inputId) => {
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
-}  
+}
+
+const saveBulkScheduleDoctor = (data) => {
+    return axios.post(`/api/bulk-create-schedule`, data);
+}
 
 
+const getScheduleDoctorByDate = (doctorId, date) => {
+    return axios.get(`/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`);
+}
 
-export { handleLogin, getAllUsers, getAllCodeService , createNewUserService , deleteUserService , editUserService , 
-    getAllDoctor , getTopDoctorService, saveDetailDoctor ,  getDetailDoctor };
+
+export {
+    handleLogin, getAllUsers, getAllCodeService, createNewUserService, deleteUserService, editUserService, getScheduleDoctorByDate,
+    getAllDoctor, getTopDoctorService, saveDetailDoctor, getDetailDoctor, saveBulkScheduleDoctor
+};

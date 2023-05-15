@@ -264,7 +264,7 @@ export const saveDetailDoctorByRedux = (dataFromRequestInput) => {
     return async (dispatch, getState) => {
         try {
             let response = await saveDetailDoctor(dataFromRequestInput);
-            console.log("CHEKC RES : ", response);
+            // console.log("CHEKC RES : ", response);
             if (response && response.errCode === 0) {
                 toast.success("Save detail doctor successfully!!!");
                 dispatch({

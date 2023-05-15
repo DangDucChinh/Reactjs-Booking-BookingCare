@@ -23,7 +23,7 @@ class HomeHeader extends Component {
 
     render() {
         let lang = this.props.language;
-        console.log('Check useer infor : ', this.props.userInfo);
+        // console.log('Check useer infor : ', this.props.userInfo);
         return (
             <>
                 <div className="home-header-container">
