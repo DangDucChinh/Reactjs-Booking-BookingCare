@@ -190,7 +190,32 @@
     "patient":{
         "detail-doctor":{
             "schedule":"Schedule examination",
-            "no-schedule":"The doctor has no scheduled appointments during this time!"
+            "no-schedule":"The doctor has no scheduled appointments during this time!",
+            "choose":"Choose " , 
+            "book-free":" and book-free !" 
+        },
+        "extra-infor-doctor":{
+            "text-address":"Address of examination",
+            "price":"Examination price",
+            "detail":"See details",
+            "payment":"The patient can pay the cost in the form of - ",
+            "hide-price":"Hide price list",
+            "description":"Description"
+        }
+    },
+    "admin":{
+        "manage-doctor":{
+            "title":"Create Information For Doctors",
+            "choose-doctor":"Choose doctor",
+            "introductory-information":"Introductory information",
+            "save-infor":"Save information",
+            "create-infor":"Create information",
+            "choose-price":"Price for examination",
+            "choose-payment":"Payment method",
+            "choose-province":"Choose province",
+            "name-clinic":"Name's Clinic",
+            "address-clinic":"address's Clinic",
+            "note":"Note"
         }
     }
 }

@@ -1,7 +1,7 @@
 import actionTypes from "./actionTypes";
 import {
     getAllCodeService, createNewUserService, getAllUsers, getAllDoctor
-    , deleteUserService, editUserService, getTopDoctorService, saveDetailDoctor , getAllCodeScheduleTime 
+    , deleteUserService, editUserService, getTopDoctorService, saveDetailDoctor, getAllCodeScheduleTime
 } from "../../services/userSevice";
 import { toast } from "react-toastify";
 // bat dau , dang lam , ket thuc
@@ -264,7 +264,7 @@ export const saveDetailDoctorByRedux = (dataFromRequestInput) => {
     return async (dispatch, getState) => {
         try {
             let response = await saveDetailDoctor(dataFromRequestInput);
-            // console.log("CHEKC RES : ", response);
+            console.log("CHEKC RES : ", response);
             if (response && response.errCode === 0) {
                 toast.success("Save detail doctor successfully!!!");
                 dispatch({
@@ -309,8 +309,52 @@ export const fetchAllCodeScheduleTime = () => {
         }
     }
 };
+//////////////////////////////////
 
 
+
+
+export const getAllRequiredDoctorInfor = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_START });
+
+            let responsePrice = await getAllCodeService('price');
+            let responsePayment = await getAllCodeService('payment');
+            let responseProvince = await getAllCodeService('province');
+
+
+            if (responsePrice && responsePrice.errCode === 0 &&
+                responsePayment && responsePayment.errCode === 0 &&
+                responseProvince && responseProvince.errCode === 0) {
+                let data = {
+                    resPrice: responsePrice,
+                    resPayment: responsePayment,
+                    resProvince: responseProvince
+                };
+                dispatch(fetch_required_doctor_infor_success(data));
+            } else {
+                dispatch(fetch_required_doctor_infor_failed());
+            }
+        } catch (error) {
+            dispatch(fetch_required_doctor_infor_failed());
+            console.log('The error from adminAction price for schedule : ', error);
+        }
+    }
+}
+
+export const fetch_required_doctor_infor_success = (allRequiredData) => {
+    return {
+        type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS,
+        payload : allRequiredData
+    };
+};
+
+export const fetch_required_doctor_infor_failed = () => {
+    return {
+        type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED
+    };
+}
 
 
 

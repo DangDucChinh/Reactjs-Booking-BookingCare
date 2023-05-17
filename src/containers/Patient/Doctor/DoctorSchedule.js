@@ -100,8 +100,7 @@ class DoctorSchedule extends Component {
         let { allDays, allAvailableTime } = this.state;
         let { language } = this.props;
         bien = bien + 1;
-        console.log(`Render con lần :${bien} tại con, nhận tham số từ cha `, this.state.allAvailableTime);
-        console.log('tham số truyền từ cha bởi props , vẫn trong render của con ,sau khi con render xong thì didmount ?? :', this.props.doctorIdFromParent);
+
 
         return (
             <>
@@ -129,6 +128,12 @@ class DoctorSchedule extends Component {
 
                                 : <div><FormattedMessage id="patient.detail-doctor.no-schedule"></FormattedMessage></div>
                             }
+                        </div>
+                    </div>
+                    <div className='book-free'>
+                        <div><FormattedMessage id="patient.detail-doctor.choose"></FormattedMessage>
+                        <i className="fal fa-hand-point-up"></i>
+                        <FormattedMessage id="patient.detail-doctor.book-free"></FormattedMessage>
                         </div>
                     </div>
                 </div>
