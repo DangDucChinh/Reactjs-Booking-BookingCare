@@ -5,7 +5,8 @@ export const path = { // cấu hình đường link cho cả projetc , link trê
     LOG_OUT: '/logout',
     SYSTEM: '/system' , 
     DETAIL_DOCTOR : '/detail-doctor/:id' , 
-    DOCTOR : '/doctor' // tự cấu hình trong #71
+    DOCTOR : '/doctor', // tự cấu hình trong #71  ,
+    VERIFY_EMAIL_BOOKING:'/verify-booking'
 };
 
 export const LANGUAGES = {

@@ -12,6 +12,8 @@ import NumberFormat from 'react-number-format';
 
 
 
+
+
 class DoctorExtraInfor extends Component {
     constructor(props) {
         super(props);

@@ -176,6 +176,7 @@ class ManageDoctor extends Component {
         });
     }
 
+
     handleChangeSelectedDoctorMoreInfor = async (seletedOption, objInput) => {
         let copyState = { ...this.state };
 

@@ -5,9 +5,23 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
+import { getAllSpecialty } from '../../../services/userSevice';
 
 
 class Specialty extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSpecialty: []
+        };
+    }
+
+    async componentDidMount() {
+        let res = await getAllSpecialty();
+        if (res && res.errCode === 0) {
+            this.setState({ dataSpecialty: res.data ? res.data : [] });
+        }
+    }
 
 
     render() {
@@ -18,6 +32,9 @@ class Specialty extends Component {
             slidesToShow: 4,
             slidesToScroll: 2
         };
+
+        let { dataSpecialty } = this.state;
+        console.log('check : ', dataSpecialty);
 
         return (
             <>
@@ -30,30 +47,15 @@ class Specialty extends Component {
                     </div>
                     <div className="specialty-body">
                         <Slider {...settings} className="specialty-body">
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.remote-cardiologist" /></p>
-                            </div>
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.remote-pediatrician" /></p>
-                            </div>
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.remote-nephrologist-urologist" /></p>
-                            </div>
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.remote-pulmonologist-respiratory" /></p>
-                            </div>
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.remote-neurologist" /></p>
-                            </div>
-                            <div className="slick-item">
-                                <div className="bg-image"></div>
-                                <p><FormattedMessage id="home-section-specialities.consulting-doctor-F0" /></p>
-                            </div>
+                            {dataSpecialty && dataSpecialty.length > 0
+                                && dataSpecialty.map((item, index) => {
+                                    return (
+                                        <div className="slick-item" key={index}>
+                                            <div className="bg-image" style={{backgroundImage : `url(${item.image})`}}></div>
+                                            <p>{item.name}</p>
+                                        </div>
+                                    );
+                                })}
                         </Slider>
                     </div>
                 </div>
